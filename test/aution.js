@@ -6,6 +6,7 @@ describe("Aution", function () {
         [owner, seller, buyer1, buyer2] = await ethers.getSigners();
         const Aution = await ethers.getContractFactory("Aution");
         aution = await Aution.connect(owner).deploy(seller.address,"name");
+        await aution.deployed();
     })
 
     it("test case 1", async function () {

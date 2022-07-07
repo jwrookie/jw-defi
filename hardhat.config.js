@@ -23,17 +23,25 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.4",
-  defaultNetwork: "hardhat",
+  defaultNetwork: "ropsten",
   networks: {
     hardhat: {
       allowUnlimitedContractSize: false
     },
+    kccTest: {
+      url: 'https://rpc-testnet.kcc.network',
+      chainId: 322,
+      accounts: ['']
+      // gasPrice: 20000000000,
+      // accounts: {mnemonic: mnemonic}
+    },
     ropsten: {
       // b118021551b14caeb16fcc622b24b130 为项目id，在 https://infura.io 上申请
       url: "https://ropsten.infura.io/v3/b118021551b14caeb16fcc622b24b130",
-      chainId: 3
+      from: "0x67F035CA9ba9eCE6A0cB068d7829ACA71cdd15A6",
+      chainId: 3,
       // accounts 为账户私钥，可以添加多个
-      // accounts : [""]
+      accounts : [""]
     }
   },
   paths: {
@@ -44,5 +52,22 @@ module.exports = {
   },
   mocha: {
     timeout: 40000
+  },
+  etherscan: {
+    apiKey: {
+      // 以太坊测试网 的key，在主网上申请，他们通用
+      ropsten: '',
+      kccTest: ''
+    },
+    customChains: [
+      {
+        network: "kccTest",
+        chainId: 322,
+        urls: {
+          apiURL: "https://rpc-testnet.kcc.network",
+          browserURL: "https://scan-testnet.kcc.network"
+        }
+      }
+    ]
   }
 };
